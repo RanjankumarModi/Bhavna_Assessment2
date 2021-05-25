@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Assessment2-BL">
       <HintPath>..\..\Assessment2-BL\Assessment2-BL\bin\Debug\netcoreapp3.1\Assessment2-BL.dll</HintPath>
     </Reference>

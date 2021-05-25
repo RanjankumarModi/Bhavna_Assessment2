@@ -29,6 +29,7 @@ namespace Currency
                 }
             }
             float x = Assessment2_BL.CurrencyConvertBL.CalculateCurrency();
+            Console.WriteLine(x);
         }
     }
 }

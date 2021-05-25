@@ -90,16 +90,20 @@ namespace Assessment2_BL
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 
+               
                 while (sqlDataReader.Read())
                 {
                     
-                    string name = sqlDataReader["name"].ToString();
-                    float rate = (float)(sqlDataReader["rate"]);
+                    string name = sqlDataReader["currencySymbol"].ToString();
+                    
+                    float rate = float.Parse(sqlDataReader["currencyValue"].ToString());
+                    //Console.WriteLine(rate);
                     List.Add(new ConversionList(name,rate));
                 }
             }
             catch (Exception e)
             {
+             //   Console.WriteLine("Example");
                 Console.WriteLine($"Exception occured while retrieving data: {e.Message}");
             }
             finally
@@ -149,10 +153,14 @@ namespace Assessment2_BL
         /// <returns> Float value in Indian currency</returns>
         public static float CalculateCurrency()
         {
+            List.RemoveAll(item=>item.Exchangevalue!=0);
             GetlistFromDatabase();
-            foreach(var item in List)
+            List<string> strSymbol = new List<string>();
+            //Console.WriteLine(List.Count());
+            foreach (var item in List)
             {
-                Console.WriteLine(item.Currencyname);
+                Console.WriteLine(item.Currencyname+"   "+item.Exchangevalue);
+                strSymbol.Add(item.Currencyname); 
             }
             float x = 0.0f;
             try
@@ -160,19 +168,12 @@ namespace Assessment2_BL
                 Console.Write("Enter currency symbol (eg. EURINR): ");
                 string currencySymbol = Console.ReadLine().ToUpper();
 
-                while (currencySymbol.LastIndexOf("INR") == -1)
-                {
-                    Console.Write("Please enter valid currency symbol (eg. EURINR): ");
-                    currencySymbol = Console.ReadLine().ToUpper();
-                }
-
-                string currencyName = currencySymbol.Remove(currencySymbol.LastIndexOf("INR"));
-
-                while (!List.Any(c => currencyName.Equals(c.Currencyname)))
+                
+                while (!strSymbol.Contains(currencySymbol))
                 {
                     Console.Write("This Currency is not present please enter another (eg. EURINR): ");
                     currencySymbol = Console.ReadLine().ToUpper();
-                    currencyName = currencySymbol.Remove(currencySymbol.LastIndexOf("INR"));
+                   
                 }
 
                 Console.Write("Enter Amount: ");
@@ -185,7 +186,7 @@ namespace Assessment2_BL
 
                 foreach(var templist in List)
                 {
-                    if(templist.Currencyname.Equals(currencyName))
+                    if(templist.Currencyname.Equals(currencySymbol))
                     {
                         x = (float)((templist.Exchangevalue) * amount);
                     }
