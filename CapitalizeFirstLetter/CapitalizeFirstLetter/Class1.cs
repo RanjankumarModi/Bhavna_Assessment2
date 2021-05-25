@@ -9,11 +9,15 @@ namespace CapitalizeFirstLetter
 {
     class Class1
     {
+        /// <summary>
+        /// This program capitalize the first letter of every word except conjuction,preposition and articles. 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
        {
 
-            
-           // CapitalizeFirscapitalizeFirstLetter = new CapitalizeFirstLetter();
+            Assessment2_BL.ProgrammerDetails.GetAppInfo("CapitalizeFirstLatter");
+            // CapitalizeFirscapitalizeFirstLetter = new CapitalizeFirstLetter();
             Console.Write("Enter a string: ");
             string sentence=Console.ReadLine();
             //Console.WriteLine(sentence.Length);

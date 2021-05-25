@@ -8,7 +8,15 @@ namespace Assessment2_BL
 {
     public static class CurrencyConvertBL
     {
-       public static List<ConversionList> list = new List<ConversionList>();
+        private static List<ConversionList> list = new List<ConversionList>();
+
+        public static List<ConversionList> List { get => list; set => list = value; }
+
+        #region Add currencies to database 
+        /// <summary>
+        /// Add currencies to database
+        /// </summary>
+        /// <param name="list"></param>
         public static void AddCurrencyToDatabase(List<ConversionList> list)
         {
             SqlConnection sqlConnection = null;
@@ -36,6 +44,12 @@ namespace Assessment2_BL
                 sqlConnection.Close();
             }
         }
+        #endregion
+
+        #region delete currencies from database
+        /// <summary>
+        /// Delete data from Database
+        /// </summary>
         public static void DeleteCurrenciesFromDatabase()
         {
             SqlConnection sqlConnection = null;
@@ -55,37 +69,15 @@ namespace Assessment2_BL
                 sqlConnection.Close();
             }
         }
-        public static int GetCurrenciesFromDatabase()
-        {
-            SqlConnection sqlConnection = null;
-            int x = 0;
-           // List<Currency> currencies = new List<Currency>();
+        #endregion
 
-            try
-            {
-                sqlConnection = new SqlConnection("data source=.; database=Currency; integrated security=SSPI");
-                SqlCommand sqlCommand = new SqlCommand("select * from currency;", sqlConnection);
-                sqlConnection.Open();
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+        
 
-                while (sqlDataReader.Read())
-                {
-                    x++;
-                    
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Exception occured while retrieving data: {e.Message}");
-            }
-            finally
-            {
-                sqlConnection.Close();
-            }
-
-            return x;
-        }
-        public static void GetlistFromDatabase()
+        #region GetList from Databse
+        /// <summary>
+        /// takes out the data from database
+        /// </summary>
+        public static List<ConversionList> GetlistFromDatabase()
         {
             SqlConnection sqlConnection = null;
             
@@ -103,9 +95,7 @@ namespace Assessment2_BL
                     
                     string name = sqlDataReader["name"].ToString();
                     float rate = (float)(sqlDataReader["rate"]);
-                    list.Add(new ConversionList(name,rate));
-
-
+                    List.Add(new ConversionList(name,rate));
                 }
             }
             catch (Exception e)
@@ -116,10 +106,14 @@ namespace Assessment2_BL
             {
                 sqlConnection.Close();
             }
-
-            
+            return list;
         }
+        #endregion
 
+        #region AddCurrencies to list then to database
+        /// <summary>
+        /// AddCurrencies to list and then call function that add to  database
+        /// </summary>
         public static void AddCurrencies()
         {
             //List<ConversionList> list= new List<ConversionList>();
@@ -127,7 +121,7 @@ namespace Assessment2_BL
             {
                 Console.Write("Currency name: ");
                 string name = Console.ReadLine().ToUpper();
-                while (list.Any(c => c.Currencyname.Equals(name)))
+                while (List.Any(c => c.Currencyname.Equals(name)))
                 {
                     Console.WriteLine("This Currency already present please enter another!");
                     Console.Write("Currency name: ");
@@ -142,14 +136,21 @@ namespace Assessment2_BL
                 {
                     Console.WriteLine("Enter valid rate");
                 }
-                list.Add(new ConversionList(name, rate));
+                List.Add(new ConversionList(name, rate));
             }
-           AddCurrencyToDatabase(list);
+           AddCurrencyToDatabase(List);
         }
+        #endregion
+
+        #region Calculate currency
+        /// <summary>
+        /// Calculate Currency Function
+        /// </summary>
+        /// <returns> Float value in Indian currency</returns>
         public static float CalculateCurrency()
         {
             GetlistFromDatabase();
-            foreach(var item in list)
+            foreach(var item in List)
             {
                 Console.WriteLine(item.Currencyname);
             }
@@ -167,7 +168,7 @@ namespace Assessment2_BL
 
                 string currencyName = currencySymbol.Remove(currencySymbol.LastIndexOf("INR"));
 
-                while (!list.Any(c => currencyName.Equals(c.Currencyname)))
+                while (!List.Any(c => currencyName.Equals(c.Currencyname)))
                 {
                     Console.Write("This Currency is not present please enter another (eg. EURINR): ");
                     currencySymbol = Console.ReadLine().ToUpper();
@@ -182,7 +183,7 @@ namespace Assessment2_BL
                     Console.Write("Please enter a valid amount: ");
                 }
 
-                foreach(var templist in list)
+                foreach(var templist in List)
                 {
                     if(templist.Currencyname.Equals(currencyName))
                     {
@@ -197,8 +198,15 @@ namespace Assessment2_BL
             }
             return x;
         }
+        #endregion
     }
-    public  class ConversionList
+
+
+    #region Conversion class for list
+    /// <summary>
+    /// Conversion class
+    /// </summary>
+    public class ConversionList
     {
         private string currencyname;
         private float exchangevalue;
@@ -212,4 +220,5 @@ namespace Assessment2_BL
         public string Currencyname { get => currencyname; set => currencyname = value; }
         public float Exchangevalue { get => exchangevalue; set => exchangevalue = value; }
     }
+    #endregion
 }

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Assessment2-BL">
+      <HintPath>..\..\Assessment2-BL\Assessment2-BL\bin\Debug\netcoreapp3.1\Assessment2-BL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

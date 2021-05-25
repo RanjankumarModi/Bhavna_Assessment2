@@ -15,7 +15,7 @@ namespace DaysCalculator
         static void Main(string[] args)
         {
             DateTime toDate , fromDate;
-           // CalculateNoOfDays calculateNoOfDays = new CalculateNoOfDays();
+            Assessment2_BL.ProgrammerDetails.GetAppInfo("DaysCalculator");
             Console.WriteLine("Input Formate must be DD-MM-YYYY");
             Console.WriteLine("Please Enter the Dates");
             Console.Write("From : ");
@@ -36,7 +36,7 @@ namespace DaysCalculator
                 Console.Write("From : ");
                 isValidDate = DateTime.TryParse(Console.ReadLine(), out toDate);
             }
-            // List<int> listDate = new List<int>(3);
+            // List<int> listDate = new List<int>();
             //DateTime f = DateTime.Parse(fromDate);
             //try
             //{
@@ -47,7 +47,7 @@ namespace DaysCalculator
             //    Console.WriteLine("Error Found", e.Message);
             //}
 
-            // Console.WriteLine("{0} day {1} Month and {2} year",listDate[0], listDate[1], listDate[2]);
+            
             int day1, mon1, year1;
             int day2, mon2, year2;
             day1 = fromDate.Day;

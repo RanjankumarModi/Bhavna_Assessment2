@@ -7,6 +7,11 @@ namespace StorageCheck
     
     class StorageCheck
     {
+        /// <summary>
+        /// This method takes input from users and add it on list
+        /// calls Assessment2_BL.StorageCheck.PrintList() method for printing list
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             Assessment2_BL.ProgrammerDetails.GetAppInfo("StorageCheck");

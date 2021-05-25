@@ -6,25 +6,19 @@ namespace Assessment2_BL
 {
     public static class CalculateNoOfDays
     {
-       
-        //public static int CalculateTotalDay(DateTime fromDate, DateTime toDate)
-        //{
-        //    return(toDate.Subtract(fromDate).Days);
-        //}
-        //public static int CalculateTotalMonth(DateTime fromDate, DateTime toDate)
-        //{
-        //    return ((toDate.Month - fromDate.Month + (toDate.Year - fromDate.Year) * 12));
-        //}
-        //public static int CalculateTotalYear(DateTime fromDate, DateTime toDate)
-        //{
-        //    return (toDate.Year - fromDate.Year);
-        //}
-
+        /// <summary>
+        /// Days,Month and year Calculator
+        /// </summary>
+        /// <param name="day1"></param>
+        /// <param name="mon1"></param>
+        /// <param name="year1"></param>
+        /// <param name="day2"></param>
+        /// <param name="mon2"></param>
+        /// <param name="year2"></param>
+        /// <returns></returns>
         public static List<int> CalculateDateDifference(int day1, int mon1,int  year1,int  day2,int  mon2,int  year2)
         {
             
-            
-           
             if (day2 < day1)
             {
                 // borrow days from february
@@ -55,21 +49,21 @@ namespace Assessment2_BL
                 }
 
                 mon2 = mon2 - 1;
-               // Console.WriteLine(year2 + "  y  " + year1);
+               
             }
 
             if (mon2 < mon1)
             {
                 mon2 += 12;
                 year2 -= 1;
-               // Console.WriteLine(year2 + "  y  " + year1);
+              
             }
            List<int> date = new List<int>();
-          date.Add(day2 - day1);
+           date.Add(day2 - day1);
            date.Add( mon2 - mon1);
 
-            //Console.WriteLine(year2+"  y  "+year1);
-          date.Add( year2 - year1);
+            
+           date.Add( year2 - year1);
 
 
             return date;

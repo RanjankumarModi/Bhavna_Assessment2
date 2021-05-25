@@ -6,8 +6,13 @@ namespace RenderDirection
 {
     class Program
     {
+        /// <summary>
+        /// Takes a directory path and prints all its level
+        /// </summary>
+        /// <param name="agr"></param>
         public static void Main(String[] agr)
         {
+            Assessment2_BL.ProgrammerDetails.GetAppInfo("Render Direction");
             Console.WriteLine("Enter Directory Path:");
             DirectoryInfo userDirectory=null;
             try
@@ -31,7 +36,7 @@ namespace RenderDirection
                     Console.WriteLine();
                 }
             }
-              Assessment2_BL.DirectoryTree.PrintTree(userDirectory);
+            Assessment2_BL.DirectoryTree.PrintTree(userDirectory);
             foreach(string str in Assessment2_BL.DirectoryTree.List)
             {
                 Console.WriteLine(str);
